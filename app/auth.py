@@ -1,8 +1,13 @@
 # app/auth.py
 from fastapi import APIRouter
+from pydantic import BaseModel
 
-router = APIRouter()
+app = APIRouter()
 
-@router.post("/register")
-def register_user(username: str, password: str):
-    return {"message": f"User {username} registered."}
+class User(BaseModel):
+    username: str
+    password: str
+
+@app.post("/login")
+def login(user: User):
+    return {"message": f"Welcome, {user.username}!"}
